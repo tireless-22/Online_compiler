@@ -81,18 +81,18 @@ const Output = styled.div`
 const App = () => {
  
 
-  const [data, setData] = useState("Hello");
+  const [data, setData] = useState("");
   // const [fileName, setFileName] = useState("");
 
 
-  // function onChange(e) {
-  //   setData(e.target.value);
-  // }
+  function onChange(e) {
+    setData(e.target.value);
+  }
   
   
-function onChange(newValue) {
-  console.log("change", newValue);
-}
+// function onChange(newValue) {
+//   console.log("change", newValue);
+// }
 
   // const saveFile = (e) => {
   //   setData(e.target.value);
