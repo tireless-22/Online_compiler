@@ -86,6 +86,7 @@ const App = () => {
  
 
   const [datas, setDatas] = useState("");
+  const [ress,setRess]=useState("")
   // const [fileName, setFileName] = useState("");
 
 function onChange(newValue) {
@@ -94,37 +95,7 @@ function onChange(newValue) {
   setDatas(encodeURI(newValue));
 }
 
-  // function Run() {
-  //   console.log(data);
 
-
-  //   const data = new URLSearchParams();
-  //   data.append("lang", "python");
-  //   data.append("device", "");
-  //   data.append("code", data);
-  //   data.append("stdinput", 3);
-  //   data.append("ext", "py");
-    
-  //   data.append("compile", 0);
-  //   data.append("execute", "python main.py");
-  //   data.append("mainfile","main.py")
-
-
-
-  //   data.append("uid", 4268397);
-
-  //   console.log(data);
-
-  //   const url="https://tpcg2.tutorialspoint.com/tpcg.php"
-  //   const options = {
-  //     method: "POST",
-  //     headers: { "content-type": "application/x-www-form-urlencoded" },
-  //     data: qs.stringify(data),
-  //     url,
-  //   };
-  //   axios(options);
-
-  // }
 
   function Run() {
 
@@ -150,16 +121,21 @@ function onChange(newValue) {
            },
          };
 
-         axios
+         const res=axios
            .post("https://tpcg2.tutorialspoint.com/tpcg.php", data, config)
            .then((result) => {
-             console.log(result);
+            //  console.log(result.data);
+             
+             setRess(result.data);
+             console.log("hell",ress)
              // Do somthing
            })
            .catch((err) => {
              // Do somthing
              console.log(err)
            });
+    
+
       
     }
   
@@ -200,6 +176,11 @@ function onChange(newValue) {
           </Input>
           <Output>
             <NameHeader>Output</NameHeader>
+            {
+              ress !== "" ? <p>{ress}</p>:null
+            }
+          
+            
           </Output>
         </IpOpContainer>
       </Container>
