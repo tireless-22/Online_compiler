@@ -33,6 +33,8 @@ const NameHeader = styled.div`
   display: flex;
   height: 40px;
   width: 100%;
+  color:white;
+  background-color: black;
   justify-content: center;
   align-items: center;
 `;
@@ -46,7 +48,8 @@ const Container = styled.div`
 const PythonFile = styled.div`
   display: flex;
   flex: 13;
-  background-color: red;
+  background-color: black;
+  color: white;
   flex-direction: column;
 `;
 
@@ -73,7 +76,7 @@ const InputTextArea = styled.textarea`
 const Output = styled.div`
   display: flex;
   flex: 1;
-  background-color: yellow;
+  background-color: white;
   height: 50vh;
 
   flex-direction: column;
