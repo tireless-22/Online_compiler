@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import qs from "qs"
 import styled from "styled-components";
 
 import AceEditor from "react-ace";
@@ -25,7 +26,7 @@ const Navbar = styled.div`
   align-items: center;
   width: 100vw;
   height: 70px;
-  background-color: violet;
+  background-color: gray;
 `;
 
 const NameHeader = styled.div`
@@ -81,47 +82,98 @@ const Output = styled.div`
 const App = () => {
  
 
-  const [data, setData] = useState("");
+  const [datas, setDatas] = useState("");
   // const [fileName, setFileName] = useState("");
 
-
-  function onChange(e) {
-    setData(e.target.value);
-  }
+function onChange(newValue) {
+  // console.log("change", newValue);
   
-  
-// function onChange(newValue) {
-//   console.log("change", newValue);
-// }
+  setDatas(encodeURI(newValue));
+}
 
-  // const saveFile = (e) => {
-  //   setData(e.target.value);
-  //   // setFile(e.target.files[0]);
-  //   // setFileName(e.target.files[0].name);
-  // };
+  // function Run() {
+  //   console.log(data);
 
-  const uploadFile = async (e) => {
-    // const formData = new FormData();
-    // formData.append("file",data);
-    // formData.append("filename","temp.py");
-    try {
-      // console.log(formData)
-      console.log(data);
-      const res = await axios.post("http://localhost:3000/python", data);
-      console.log(res);
-    } catch (ex) {
-      console.log(ex);
+
+  //   const data = new URLSearchParams();
+  //   data.append("lang", "python");
+  //   data.append("device", "");
+  //   data.append("code", data);
+  //   data.append("stdinput", 3);
+  //   data.append("ext", "py");
+    
+  //   data.append("compile", 0);
+  //   data.append("execute", "python main.py");
+  //   data.append("mainfile","main.py")
+
+
+
+  //   data.append("uid", 4268397);
+
+  //   console.log(data);
+
+  //   const url="https://tpcg2.tutorialspoint.com/tpcg.php"
+  //   const options = {
+  //     method: "POST",
+  //     headers: { "content-type": "application/x-www-form-urlencoded" },
+  //     data: qs.stringify(data),
+  //     url,
+  //   };
+  //   axios(options);
+
+  // }
+
+  function Run() {
+
+
+      console.log(datas);
+
+      const data = new URLSearchParams();
+      data.append("lang", "python");
+      data.append("device", "");
+      data.append("code", datas);
+      data.append("stdinput", 3);
+      data.append("ext", "py");
+
+      data.append("compile", 0);
+      data.append("execute", "python main.py");
+      data.append("mainfile", "main.py");
+
+      data.append("uid", 4268397);
+
+         const config = {
+           headers: {
+             "Content-Type": "application/x-www-form-urlencoded",
+           },
+         };
+
+         axios
+           .post("https://tpcg2.tutorialspoint.com/tpcg.php", data, config)
+           .then((result) => {
+             console.log(result);
+             // Do somthing
+           })
+           .catch((err) => {
+             // Do somthing
+             console.log(err)
+           });
+      
     }
-  };
+  
+  
+
 
   return (
     <MainContainer>
       <Navbar>
         <h1>Python Compiler</h1>
-        <VscRunAll color="green" size={20} onClick={() => {
-          uploadFile()
-          
-        }}/>
+        <VscRunAll
+          color="green"
+          size={40}
+          onClick={() => {
+            Run();
+          }}
+        />
       </Navbar>
       <Container>
         <PythonFile>
@@ -130,6 +182,7 @@ const App = () => {
             mode="python"
             theme="github"
             onChange={onChange}
+            // value={data}
             name="UNIQUE_ID_OF_DIV"
             editorProps={{ $blockScrolling: true }}
             width="100%"
